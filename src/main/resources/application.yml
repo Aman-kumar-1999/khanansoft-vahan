@@ -1,0 +1,29 @@
+# spring.application.name=demo
+
+# server.port=8032
+
+
+# # spring.datasource.url=jdbc:h2:mem:testdb
+# # spring.datasource.driverClassName=org.h2.Driver
+# # spring.datasource.username=sa
+# # spring.datasource.password=password
+# # spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+# # spring.h2.console.enabled=true
+# # spring.h2.console.path=/h2-console
+
+
+
+server:
+  port: 8032
+spring:
+  application:
+    name: Vahan360
+  data:
+    mongodb:
+     uri: mongodb://admin:admin123@localhost:27017/khanan_db?authSource=admin
+      # uri: mongodb+srv://iqbalmcs_db_user:r3meuPd8TTL8QdHt@cluster0.0cyqmrm.mongodb.net/
+      # database: vehicle_db
+#      mongodb://admin:admin123@localhost:27017/vehicle_db?authSource=admin
+#    mongodb+srv://iqbalmcs_db_user:r3meuPd8TTL8QdHt@cluster0.0cyqmrm.mongodb.net/
+#          mongodb://localhost:27017/vehicle_db

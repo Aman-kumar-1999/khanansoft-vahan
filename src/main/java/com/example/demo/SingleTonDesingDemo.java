@@ -1,48 +1,48 @@
-package com.example.demo;
+// package com.example.demo;
 
-import java.util.Arrays;
-import java.util.List;
+// import java.util.Arrays;
+// import java.util.List;
 
-public class SingleTonDesingDemo {
+// public class SingleTonDesingDemo {
 	
 	
-	private static volatile SingleTonDesingDemo singleTonDesingDemo;
+// 	private static volatile SingleTonDesingDemo singleTonDesingDemo;
 	
 	
-	private SingleTonDesingDemo(){
+// 	private SingleTonDesingDemo(){
 		
-	}
+// 	}
 	
 	
-	public static SingleTonDesingDemo getInscance() {
+// 	public static SingleTonDesingDemo getInscance() {
 		
 		
 		
-		if(singleTonDesingDemo == null) {
+// 		if(singleTonDesingDemo == null) {
 			
-			synchronized (SingleTonDesingDemo.class) {
+// 			synchronized (SingleTonDesingDemo.class) {
 				
-				if(singleTonDesingDemo == null) {
+// 				if(singleTonDesingDemo == null) {
 				
-					singleTonDesingDemo = new SingleTonDesingDemo();
+// 					singleTonDesingDemo = new SingleTonDesingDemo();
 				
-				}
-			}
+// 				}
+// 			}
 			
 			
-		}
+// 		}
 		
-		return singleTonDesingDemo;
-	}
+// 		return singleTonDesingDemo;
+// 	}
 	
 	
 	
 	
-	List<Integer> num = Arrays.asList(1,3,5,6,7);
+// 	List<Integer> num = Arrays.asList(1,3,5,6,7);
 	
-	int sum = num.stream().reduce(0, (a,b) -> a + b);
+// 	int sum = num.stream().reduce(0, (a,b) -> a + b);
 	
 	
 	
 
-}
+// }

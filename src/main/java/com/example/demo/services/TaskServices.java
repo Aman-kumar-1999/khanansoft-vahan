@@ -1,33 +1,33 @@
-package com.example.demo.services;
+// package com.example.demo.services;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+// import java.util.ArrayList;
+// import java.util.HashMap;
+// import java.util.List;
+// import java.util.Map;
 
-import org.springframework.stereotype.Service;
+// import org.springframework.stereotype.Service;
 
-import com.example.demo.Task;
+// import com.example.demo.Task;
 
-@Service
-public class TaskServices {
+// @Service
+// public class TaskServices {
 	
 	
-	private static List<Task> listTask = new ArrayList<>();
+// 	private static List<Task> listTask = new ArrayList<>();
 	
 	
 	
-	public List<Task> getAllTask(){
-		return listTask;
+// 	public List<Task> getAllTask(){
+// 		return listTask;
 		
-	}
+// 	}
 	
-	public Task createTask(Task task) {
+// 	public Task createTask(Task task) {
 		
-		listTask.add(task);
-		return task;
-	}
+// 		listTask.add(task);
+// 		return task;
+// 	}
 	
 	
 
-}
+// }
