@@ -1,5 +1,8 @@
 package com.example.demo.services;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +22,9 @@ public class KhananDataService {
 
     @Autowired
     private KhananDataRepo khananDataRepo;
+
+    // @Autowired
+    // private SeleniumTestService seleniumTestService;
 
     public KhananData saveKhananData(KhananData khananData) {
         // Add any processing logic here if needed
@@ -225,19 +231,23 @@ public class KhananDataService {
     }
 
     // Specific three field filters
-    public List<KhananData> filterByDistrictAndMineralNameAndCheckStatus(String district, String mineralName, String checkStatus) {
+    public List<KhananData> filterByDistrictAndMineralNameAndCheckStatus(String district, String mineralName,
+            String checkStatus) {
         return khananDataRepo.findByDistrictAndMineralNameAndCheckStatus(district, mineralName, checkStatus);
     }
 
-    public List<KhananData> filterByDistrictAndConsignerNameAndMineralName(String district, String consignerName, String mineralName) {
+    public List<KhananData> filterByDistrictAndConsignerNameAndMineralName(String district, String consignerName,
+            String mineralName) {
         return khananDataRepo.findByDistrictAndConsignerNameAndMineralName(district, consignerName, mineralName);
     }
 
-    public List<KhananData> filterByConsignerNameAndMineralNameAndCheckStatus(String consignerName, String mineralName, String checkStatus) {
+    public List<KhananData> filterByConsignerNameAndMineralNameAndCheckStatus(String consignerName, String mineralName,
+            String checkStatus) {
         return khananDataRepo.findByConsignerNameAndMineralNameAndCheckStatus(consignerName, mineralName, checkStatus);
     }
 
-    public List<KhananData> filterByVehicleRegNoAndDestinationAndCheckStatus(String vehicleRegNo, String destination, String checkStatus) {
+    public List<KhananData> filterByVehicleRegNoAndDestinationAndCheckStatus(String vehicleRegNo, String destination,
+            String checkStatus) {
         return khananDataRepo.findByVehicleRegNoAndDestinationAndCheckStatus(vehicleRegNo, destination, checkStatus);
     }
 
@@ -246,16 +256,15 @@ public class KhananDataService {
     // Helper method to convert Page to PaginatedResponse
     private <T> PaginatedResponse<T> convertPageToPaginatedResponse(Page<T> page) {
         return new PaginatedResponse<>(
-            page.getContent(),
-            page.getNumber(),
-            page.getSize(),
-            page.getTotalElements(),
-            page.getTotalPages(),
-            page.isFirst(),
-            page.isLast(),
-            page.hasNext(),
-            page.hasPrevious()
-        );
+                page.getContent(),
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages(),
+                page.isFirst(),
+                page.isLast(),
+                page.hasNext(),
+                page.hasPrevious());
     }
 
     // Get all with pagination
@@ -280,7 +289,8 @@ public class KhananDataService {
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByMineralCategoryWithPagination(String mineralCategory, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByMineralCategoryWithPagination(String mineralCategory,
+            Pageable pageable) {
         Page<KhananData> page = khananDataRepo.findByMineralCategory(mineralCategory, pageable);
         return convertPageToPaginatedResponse(page);
     }
@@ -325,7 +335,8 @@ public class KhananDataService {
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByTransportedDateWithPagination(String transportedDate, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByTransportedDateWithPagination(String transportedDate,
+            Pageable pageable) {
         Page<KhananData> page = khananDataRepo.findByTransportedDate(transportedDate, pageable);
         return convertPageToPaginatedResponse(page);
     }
@@ -336,64 +347,80 @@ public class KhananDataService {
     }
 
     // Multiple field pagination methods (2 fields)
-    public PaginatedResponse<KhananData> filterByDistrictAndConsignerNameWithPagination(String district, String consignerName, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByDistrictAndConsignerNameWithPagination(String district,
+            String consignerName, Pageable pageable) {
         Page<KhananData> page = khananDataRepo.findByDistrictAndConsignerName(district, consignerName, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByDistrictAndMineralNameWithPagination(String district, String mineralName, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByDistrictAndMineralNameWithPagination(String district,
+            String mineralName, Pageable pageable) {
         Page<KhananData> page = khananDataRepo.findByDistrictAndMineralName(district, mineralName, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByDistrictAndCheckStatusWithPagination(String district, String checkStatus, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByDistrictAndCheckStatusWithPagination(String district,
+            String checkStatus, Pageable pageable) {
         Page<KhananData> page = khananDataRepo.findByDistrictAndCheckStatus(district, checkStatus, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByMineralNameAndCheckStatusWithPagination(String mineralName, String checkStatus, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByMineralNameAndCheckStatusWithPagination(String mineralName,
+            String checkStatus, Pageable pageable) {
         Page<KhananData> page = khananDataRepo.findByMineralNameAndCheckStatus(mineralName, checkStatus, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByConsignerNameAndMineralNameWithPagination(String consignerName, String mineralName, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByConsignerNameAndMineralNameWithPagination(String consignerName,
+            String mineralName, Pageable pageable) {
         Page<KhananData> page = khananDataRepo.findByConsignerNameAndMineralName(consignerName, mineralName, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByVehicleRegNoAndCheckStatusWithPagination(String vehicleRegNo, String checkStatus, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByVehicleRegNoAndCheckStatusWithPagination(String vehicleRegNo,
+            String checkStatus, Pageable pageable) {
         Page<KhananData> page = khananDataRepo.findByVehicleRegNoAndCheckStatus(vehicleRegNo, checkStatus, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByVehicleRegNoAndDestinationWithPagination(String vehicleRegNo, String destination, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByVehicleRegNoAndDestinationWithPagination(String vehicleRegNo,
+            String destination, Pageable pageable) {
         Page<KhananData> page = khananDataRepo.findByVehicleRegNoAndDestination(vehicleRegNo, destination, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
     // Multiple field pagination methods (3 fields)
-    public PaginatedResponse<KhananData> filterByDistrictAndMineralNameAndCheckStatusWithPagination(String district, String mineralName, String checkStatus, Pageable pageable) {
-        Page<KhananData> page = khananDataRepo.findByDistrictAndMineralNameAndCheckStatus(district, mineralName, checkStatus, pageable);
+    public PaginatedResponse<KhananData> filterByDistrictAndMineralNameAndCheckStatusWithPagination(String district,
+            String mineralName, String checkStatus, Pageable pageable) {
+        Page<KhananData> page = khananDataRepo.findByDistrictAndMineralNameAndCheckStatus(district, mineralName,
+                checkStatus, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByDistrictAndConsignerNameAndMineralNameWithPagination(String district, String consignerName, String mineralName, Pageable pageable) {
-        Page<KhananData> page = khananDataRepo.findByDistrictAndConsignerNameAndMineralName(district, consignerName, mineralName, pageable);
+    public PaginatedResponse<KhananData> filterByDistrictAndConsignerNameAndMineralNameWithPagination(String district,
+            String consignerName, String mineralName, Pageable pageable) {
+        Page<KhananData> page = khananDataRepo.findByDistrictAndConsignerNameAndMineralName(district, consignerName,
+                mineralName, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByConsignerNameAndMineralNameAndCheckStatusWithPagination(String consignerName, String mineralName, String checkStatus, Pageable pageable) {
-        Page<KhananData> page = khananDataRepo.findByConsignerNameAndMineralNameAndCheckStatus(consignerName, mineralName, checkStatus, pageable);
+    public PaginatedResponse<KhananData> filterByConsignerNameAndMineralNameAndCheckStatusWithPagination(
+            String consignerName, String mineralName, String checkStatus, Pageable pageable) {
+        Page<KhananData> page = khananDataRepo.findByConsignerNameAndMineralNameAndCheckStatus(consignerName,
+                mineralName, checkStatus, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
-    public PaginatedResponse<KhananData> filterByVehicleRegNoAndDestinationAndCheckStatusWithPagination(String vehicleRegNo, String destination, String checkStatus, Pageable pageable) {
-        Page<KhananData> page = khananDataRepo.findByVehicleRegNoAndDestinationAndCheckStatus(vehicleRegNo, destination, checkStatus, pageable);
+    public PaginatedResponse<KhananData> filterByVehicleRegNoAndDestinationAndCheckStatusWithPagination(
+            String vehicleRegNo, String destination, String checkStatus, Pageable pageable) {
+        Page<KhananData> page = khananDataRepo.findByVehicleRegNoAndDestinationAndCheckStatus(vehicleRegNo, destination,
+                checkStatus, pageable);
         return convertPageToPaginatedResponse(page);
     }
 
     // Dynamic multi-criteria pagination
-    public PaginatedResponse<KhananData> filterByMultipleCriteriaWithPagination(FilterCriteria criteria, Pageable pageable) {
+    public PaginatedResponse<KhananData> filterByMultipleCriteriaWithPagination(FilterCriteria criteria,
+            Pageable pageable) {
         List<KhananData> result = khananDataRepo.findAll();
 
         // Apply filters dynamically based on non-null values
@@ -484,11 +511,30 @@ public class KhananDataService {
         // Apply pagination manually
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), result.size());
-        
+
         List<KhananData> pageContent = result.subList(start, end);
         Page<KhananData> page = new PageImpl<>(pageContent, pageable, result.size());
-        
+
         return convertPageToPaginatedResponse(page);
     }
+
+    // public List<KhananData> getKhananDataByDateRange(String url, String selector, String inputCssSelector, String fromDate, String toDate) {
+
+    //     DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+
+    //     // Convert String → LocalDate
+    //     LocalDate startDate = LocalDate.parse(fromDate, inputFormatter);
+    //     LocalDate endDate = LocalDate.parse(toDate, inputFormatter);
+
+    //     DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
+
+    //     for (LocalDate date = startDate; !date.isBefore(endDate); date = date.minusDays(1)) {
+
+    //         System.out.println("==================== "+ date.format(outputFormatter) + " ====================");
+    //         seleniumTestService.openWebsiteAndClickWithAnchor(url, selector,inputCssSelector, date.format(outputFormatter));
+    //     }
+
+    //     return new ArrayList<>(); // Replace with actual DB call
+    // }
 
 }

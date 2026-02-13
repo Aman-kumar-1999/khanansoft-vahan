@@ -30,6 +30,21 @@ public class KhananDataController {
     @Autowired
     private KhananDataService khananDataService;
 
+    // ==================== LOAD KHANANSOFT DATA BY FROM CURRENT DATE TO LAST DATE
+    // WISE ENDPOINTS ====================
+
+    // @GetMapping("/by-date-range")
+    // public ResponseEntity<List<KhananData>> getKhananDataByDateRange(
+    //         @RequestParam(defaultValue = "https://khanansoft.bihar.gov.in/portal/CitizenRpt/epassreportAllDist.aspx") String url,
+    //         @RequestParam(defaultValue = "%23ctl00_MainContent_btnshow") String selector,
+    //         @RequestParam(defaultValue = "%23ctl00_MainContent_txtDate1") String inputCssSelector,
+    //         // @RequestParam(defaultValue = "") String inputCssSelectorData,
+    //         @RequestParam String fromDate,
+    //         @RequestParam String toDate) {
+    //     List<KhananData> data = khananDataService.getKhananDataByDateRange(url, selector, inputCssSelector, fromDate, toDate);
+    //     return new ResponseEntity<>(data, HttpStatus.OK);
+    // }
+
     // ==================== CREATE ENDPOINTS ====================
 
     @PostMapping("/save")
@@ -209,7 +224,8 @@ public class KhananDataController {
             @RequestParam String district,
             @RequestParam String mineralName,
             @RequestParam String checkStatus) {
-        List<KhananData> data = khananDataService.filterByDistrictAndMineralNameAndCheckStatus(district, mineralName, checkStatus);
+        List<KhananData> data = khananDataService.filterByDistrictAndMineralNameAndCheckStatus(district, mineralName,
+                checkStatus);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -218,7 +234,8 @@ public class KhananDataController {
             @RequestParam String district,
             @RequestParam String consignerName,
             @RequestParam String mineralName) {
-        List<KhananData> data = khananDataService.filterByDistrictAndConsignerNameAndMineralName(district, consignerName, mineralName);
+        List<KhananData> data = khananDataService.filterByDistrictAndConsignerNameAndMineralName(district,
+                consignerName, mineralName);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -227,7 +244,8 @@ public class KhananDataController {
             @RequestParam String consignerName,
             @RequestParam String mineralName,
             @RequestParam String checkStatus) {
-        List<KhananData> data = khananDataService.filterByConsignerNameAndMineralNameAndCheckStatus(consignerName, mineralName, checkStatus);
+        List<KhananData> data = khananDataService.filterByConsignerNameAndMineralNameAndCheckStatus(consignerName,
+                mineralName, checkStatus);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -236,11 +254,13 @@ public class KhananDataController {
             @RequestParam String vehicleRegNo,
             @RequestParam String destination,
             @RequestParam String checkStatus) {
-        List<KhananData> data = khananDataService.filterByVehicleRegNoAndDestinationAndCheckStatus(vehicleRegNo, destination, checkStatus);
+        List<KhananData> data = khananDataService.filterByVehicleRegNoAndDestinationAndCheckStatus(vehicleRegNo,
+                destination, checkStatus);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-    // ==================== UPDATE ENDPOINTS (RETURNS FILTERED DATA) ====================
+    // ==================== UPDATE ENDPOINTS (RETURNS FILTERED DATA)
+    // ====================
 
     @PutMapping("/update/{id}")
     public ResponseEntity<KhananData> updateKhananData(
@@ -292,7 +312,8 @@ public class KhananDataController {
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-    // ==================== SINGLE FIELD FILTER PAGINATION ENDPOINTS ====================
+    // ==================== SINGLE FIELD FILTER PAGINATION ENDPOINTS
+    // ====================
 
     @GetMapping("/paginated/filter/district")
     public ResponseEntity<PaginatedResponse<KhananData>> filterByDistrictPaginated(
@@ -306,7 +327,8 @@ public class KhananDataController {
     public ResponseEntity<PaginatedResponse<KhananData>> filterByConsignerNamePaginated(
             @RequestParam String consignerName,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByConsignerNameWithPagination(consignerName, pageable);
+        PaginatedResponse<KhananData> data = khananDataService.filterByConsignerNameWithPagination(consignerName,
+                pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -322,7 +344,8 @@ public class KhananDataController {
     public ResponseEntity<PaginatedResponse<KhananData>> filterByMineralCategoryPaginated(
             @RequestParam String mineralCategory,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByMineralCategoryWithPagination(mineralCategory, pageable);
+        PaginatedResponse<KhananData> data = khananDataService.filterByMineralCategoryWithPagination(mineralCategory,
+                pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -346,7 +369,8 @@ public class KhananDataController {
     public ResponseEntity<PaginatedResponse<KhananData>> filterByConsigneeNamePaginated(
             @RequestParam String consigneeName,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByConsigneeNameWithPagination(consigneeName, pageable);
+        PaginatedResponse<KhananData> data = khananDataService.filterByConsigneeNameWithPagination(consigneeName,
+                pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -394,7 +418,8 @@ public class KhananDataController {
     public ResponseEntity<PaginatedResponse<KhananData>> filterByTransportedDatePaginated(
             @RequestParam String transportedDate,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByTransportedDateWithPagination(transportedDate, pageable);
+        PaginatedResponse<KhananData> data = khananDataService.filterByTransportedDateWithPagination(transportedDate,
+                pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -402,18 +427,21 @@ public class KhananDataController {
     public ResponseEntity<PaginatedResponse<KhananData>> filterByVehicleRegNoPaginated(
             @RequestParam String vehicleRegNo,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByVehicleRegNoWithPagination(vehicleRegNo, pageable);
+        PaginatedResponse<KhananData> data = khananDataService.filterByVehicleRegNoWithPagination(vehicleRegNo,
+                pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-    // ==================== MULTIPLE FIELD FILTER PAGINATION ENDPOINTS (2 FIELDS) ====================
+    // ==================== MULTIPLE FIELD FILTER PAGINATION ENDPOINTS (2 FIELDS)
+    // ====================
 
     @GetMapping("/paginated/filter/district-consigner")
     public ResponseEntity<PaginatedResponse<KhananData>> filterByDistrictAndConsignerPaginated(
             @RequestParam String district,
             @RequestParam String consignerName,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByDistrictAndConsignerNameWithPagination(district, consignerName, pageable);
+        PaginatedResponse<KhananData> data = khananDataService.filterByDistrictAndConsignerNameWithPagination(district,
+                consignerName, pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -422,7 +450,8 @@ public class KhananDataController {
             @RequestParam String district,
             @RequestParam String mineralName,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByDistrictAndMineralNameWithPagination(district, mineralName, pageable);
+        PaginatedResponse<KhananData> data = khananDataService.filterByDistrictAndMineralNameWithPagination(district,
+                mineralName, pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -431,7 +460,8 @@ public class KhananDataController {
             @RequestParam String district,
             @RequestParam String checkStatus,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByDistrictAndCheckStatusWithPagination(district, checkStatus, pageable);
+        PaginatedResponse<KhananData> data = khananDataService.filterByDistrictAndCheckStatusWithPagination(district,
+                checkStatus, pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -440,7 +470,8 @@ public class KhananDataController {
             @RequestParam String mineralName,
             @RequestParam String checkStatus,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByMineralNameAndCheckStatusWithPagination(mineralName, checkStatus, pageable);
+        PaginatedResponse<KhananData> data = khananDataService
+                .filterByMineralNameAndCheckStatusWithPagination(mineralName, checkStatus, pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -449,7 +480,8 @@ public class KhananDataController {
             @RequestParam String consignerName,
             @RequestParam String mineralName,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByConsignerNameAndMineralNameWithPagination(consignerName, mineralName, pageable);
+        PaginatedResponse<KhananData> data = khananDataService
+                .filterByConsignerNameAndMineralNameWithPagination(consignerName, mineralName, pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -458,7 +490,8 @@ public class KhananDataController {
             @RequestParam String vehicleRegNo,
             @RequestParam String checkStatus,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByVehicleRegNoAndCheckStatusWithPagination(vehicleRegNo, checkStatus, pageable);
+        PaginatedResponse<KhananData> data = khananDataService
+                .filterByVehicleRegNoAndCheckStatusWithPagination(vehicleRegNo, checkStatus, pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -467,11 +500,13 @@ public class KhananDataController {
             @RequestParam String vehicleRegNo,
             @RequestParam String destination,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByVehicleRegNoAndDestinationWithPagination(vehicleRegNo, destination, pageable);
+        PaginatedResponse<KhananData> data = khananDataService
+                .filterByVehicleRegNoAndDestinationWithPagination(vehicleRegNo, destination, pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-    // ==================== MULTIPLE FIELD FILTER PAGINATION ENDPOINTS (3 FIELDS) ====================
+    // ==================== MULTIPLE FIELD FILTER PAGINATION ENDPOINTS (3 FIELDS)
+    // ====================
 
     @GetMapping("/paginated/filter/district-mineral-status")
     public ResponseEntity<PaginatedResponse<KhananData>> filterByDistrictMineralAndStatusPaginated(
@@ -479,7 +514,9 @@ public class KhananDataController {
             @RequestParam String mineralName,
             @RequestParam String checkStatus,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByDistrictAndMineralNameAndCheckStatusWithPagination(district, mineralName, checkStatus, pageable);
+        PaginatedResponse<KhananData> data = khananDataService
+                .filterByDistrictAndMineralNameAndCheckStatusWithPagination(district, mineralName, checkStatus,
+                        pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -489,7 +526,9 @@ public class KhananDataController {
             @RequestParam String consignerName,
             @RequestParam String mineralName,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByDistrictAndConsignerNameAndMineralNameWithPagination(district, consignerName, mineralName, pageable);
+        PaginatedResponse<KhananData> data = khananDataService
+                .filterByDistrictAndConsignerNameAndMineralNameWithPagination(district, consignerName, mineralName,
+                        pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -499,7 +538,9 @@ public class KhananDataController {
             @RequestParam String mineralName,
             @RequestParam String checkStatus,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByConsignerNameAndMineralNameAndCheckStatusWithPagination(consignerName, mineralName, checkStatus, pageable);
+        PaginatedResponse<KhananData> data = khananDataService
+                .filterByConsignerNameAndMineralNameAndCheckStatusWithPagination(consignerName, mineralName,
+                        checkStatus, pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
@@ -509,17 +550,21 @@ public class KhananDataController {
             @RequestParam String destination,
             @RequestParam String checkStatus,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByVehicleRegNoAndDestinationAndCheckStatusWithPagination(vehicleRegNo, destination, checkStatus, pageable);
+        PaginatedResponse<KhananData> data = khananDataService
+                .filterByVehicleRegNoAndDestinationAndCheckStatusWithPagination(vehicleRegNo, destination, checkStatus,
+                        pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-    // ==================== ADVANCED PAGINATION FILTER ENDPOINTS ====================
+    // ==================== ADVANCED PAGINATION FILTER ENDPOINTS
+    // ====================
 
     @PostMapping("/paginated/filter/multiple")
     public ResponseEntity<PaginatedResponse<KhananData>> filterByMultipleCriteriaPaginated(
             @RequestBody FilterCriteria criteria,
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        PaginatedResponse<KhananData> data = khananDataService.filterByMultipleCriteriaWithPagination(criteria, pageable);
+        PaginatedResponse<KhananData> data = khananDataService.filterByMultipleCriteriaWithPagination(criteria,
+                pageable);
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
