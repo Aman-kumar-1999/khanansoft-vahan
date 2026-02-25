@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,6 +24,9 @@ public class KhananData {
     private String quantity;
     private String unit;
     private String checkStatus;
+    
+    @CreatedDate
+    private String createdAt;
 
 
     public String getId() {
@@ -115,6 +119,12 @@ public class KhananData {
     public void setCheckStatus(String checkStatus) {
         this.checkStatus = checkStatus;
     }   
+    public String getCreatedAt() {
+        return createdAt;
+    }
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
 
 
@@ -137,6 +147,7 @@ public class KhananData {
         this.quantity = quantity;
         this.unit = unit;
         this.checkStatus = checkStatus;
+        // this.createdAt = createdAt;
 
     }
 

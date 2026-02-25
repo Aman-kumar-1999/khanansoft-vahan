@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: khanan-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: khanan-app
+  template:
+    metadata:
+      labels:
+        app: khanan-app
+    spec:
+      containers:
+        - name: khanan-containers-app
+          image: amankumar19990923/khanan-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+          volumeMounts:
+            - name: devshm
+              mountPath: /dev/shm
+      volumes:
+        - name: devshm
+          emptyDir:
+            medium: Memory
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: khanan-service
+spec:
+  selector:
+    app: khanan-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: khanan-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: khanan-service
+                port:
+                  number: 80

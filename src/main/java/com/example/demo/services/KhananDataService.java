@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.FilterCriteria;
@@ -536,5 +537,39 @@ public class KhananDataService {
 
     //     return new ArrayList<>(); // Replace with actual DB call
     // }
+
+    // ==================== LOAD KHANAN DATA FOR CURRENT DATE ====================
+
+    /**
+     * Get khanan data for the current date
+     * 
+     * @return List of KhananData for today
+     */
+    public List<KhananData> getKhananDataForCurrentDate() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedDate = currentDate.format(formatter);
+        
+        List<KhananData> data = khananDataRepo.findByDate(formattedDate);
+        System.out.println("Loaded khanan data for current date: " + formattedDate + " - Records found: " + data.size());
+        return data;
+    }
+
+    /**
+     * Scheduled task to load khanan data every morning at 1:00 AM
+     * Runs daily at 1:00 AM (01:00:00)
+     */
+    // @Scheduled(cron = "0 0 1 * * ?")
+    public void scheduleLoadKhananDataDaily() {
+        try {
+            System.out.println("========== SCHEDULED TASK STARTED AT 1:00 AM ==========");
+            List<KhananData> data = getKhananDataForCurrentDate();
+            System.out.println("========== SCHEDULED TASK COMPLETED ==========");
+            System.out.println("Total records loaded: " + data.size());
+        } catch (Exception e) {
+            System.err.println("Error occurred in scheduled task: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 }

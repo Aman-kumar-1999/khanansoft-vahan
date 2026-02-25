@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,27 +22,56 @@ public class SeleniumController {
     @Autowired
     private SeleniumTestService seleniumTestService;
 
-    // ==================== LOAD KHANANSOFT DATA BY FROM CURRENT DATE TO LAST DATE
+    // ==================== LOAD KHANANSOFT DATA BY FROM Custom DATE TO LAST DATE
     // WISE ENDPOINTS ====================
-
+// ----------------------------------------------------------------------------------------------------------------------------
+  
     @GetMapping("/by-date-range")
     public ResponseEntity<List<Map<String, String>>> getKhananDataByDateRange(
             @RequestParam(defaultValue = "https://khanansoft.bihar.gov.in/portal/CitizenRpt/epassreportAllDist.aspx") String url,
-            @RequestParam(defaultValue = "%23ctl00_MainContent_btnshow") String selector,
-            @RequestParam(defaultValue = "%23ctl00_MainContent_txtDate1") String inputCssSelector,
+            @RequestParam(defaultValue = "#ctl00_MainContent_btnshow") String selectorShowButton,
+            @RequestParam(defaultValue = "#ctl00_MainContent_txtDate1") String inputCssSelectorDateInputField,
             // @RequestParam(defaultValue = "") String inputCssSelectorData,
             @RequestParam String fromDate,
             @RequestParam String toDate) {
         // List<KhananData> data = seleniumTestService.getKhananDataByDateRange(url,
         // selector, inputCssSelector, fromDate, toDate);
         try {
-            List<Map<String, String>> data = seleniumTestService.openWebsiteAndClickWithAnchorLoopDateWaise(url,
-                    selector, inputCssSelector, fromDate, toDate);
+            // List<Map<String, String>> data = seleniumTestService.openWebsiteAndClickWithAnchorLoopDateWaise(url,
+            //         selectorShowButton, inputCssSelectorDateInputField, fromDate, toDate);
+            
+            // List<Map<String, String>> data = seleniumTestService.openWebsiteAndClickWithAnchorLoopDateWaise(url,
+            //         selectorShowButton, inputCssSelectorDateInputField, fromDate, toDate);
+            
+            // List<Map<String, String>> data = seleniumTestService.newOpenWebsiteAndClickWithAnchorLoopDateWaise(url,
+            //         selectorShowButton, inputCssSelectorDateInputField, fromDate, toDate);
+            seleniumTestService.scheduledScrapingTask(url, inputCssSelectorDateInputField, fromDate, toDate);
 
-            return new ResponseEntity<>(data, HttpStatus.OK);
-        } catch (InterruptedException e) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
+        } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+// ----------------------------------------------------------------------------------------------------------------------------
+  
+    @GetMapping("/status")
+    public ResponseEntity<Map<String, Object>> getScraperStatus() {
+        Map<String, Object> status = new HashMap<>();
+        status.put("running", seleniumTestService.isCurrentlyRunning());
+        status.put("details", seleniumTestService.getStatusMessage());
+        return ResponseEntity.ok(status);
+    }
+
+    @GetMapping("/dailyScraping")
+    public ResponseEntity<String> triggerDailyScraping() {
+        
+        try {
+            seleniumTestService.triggerDailyScraping();
+            return ResponseEntity.ok("Daily scraping task triggered successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to trigger daily scraping task.");
         }
     }
 
@@ -57,18 +87,19 @@ public class SeleniumController {
     // return seleniumTestService.openWebsiteAndClick(url,
     // selector,inputCssSelector, inputCssSelectorData);
     // }
+// ----------------------------------------------------------------------------------------------------------------------------
+    // @GetMapping("/click-test-with-anchor-tag")
+    // public List<Map<String, String>> clickTestWithAnchorTag(
+    //         @RequestParam String url,
+    //         @RequestParam String selector,
+    //         @RequestParam String inputCssSelector,
+    //         @RequestParam String inputCssSelectorData
 
-    @GetMapping("/click-test-with-anchor-tag")
-    public List<Map<String, String>> clickTestWithAnchorTag(
-            @RequestParam String url,
-            @RequestParam String selector,
-            @RequestParam String inputCssSelector,
-            @RequestParam String inputCssSelectorData
-
-    ) throws InterruptedException {
-        return seleniumTestService.openWebsiteAndClickWithAnchor(url, selector, inputCssSelector, inputCssSelectorData);
-    }
-
+    // ) throws InterruptedException {
+    //     return seleniumTestService.openWebsiteAndClickWithAnchor(url, selector, inputCssSelector, inputCssSelectorData);
+    // }
+// ----------------------------------------------------------------------------------------------------------------------------
+  
     // @GetMapping("/second-layer-load-data")
     // public String secondLayerLoadData(
     // // @RequestParam String url,

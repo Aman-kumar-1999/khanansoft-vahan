@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.example.demo.services.KhananDataService;
 
 @RestController
 @RequestMapping("/api/khanan-data")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class KhananDataController {
 
     @Autowired
@@ -565,6 +567,19 @@ public class KhananDataController {
             @PageableDefault(size = 10, page = 0, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         PaginatedResponse<KhananData> data = khananDataService.filterByMultipleCriteriaWithPagination(criteria,
                 pageable);
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
+    // ==================== LOAD KHANAN DATA FOR CURRENT DATE ENDPOINTS ====================
+
+    /**
+     * Endpoint to load khanan data for the current date
+     * 
+     * @return List of KhananData for today
+     */
+    @GetMapping("/load-current-date")
+    public ResponseEntity<List<KhananData>> loadKhananDataForCurrentDate() {
+        List<KhananData> data = khananDataService.getKhananDataForCurrentDate();
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 

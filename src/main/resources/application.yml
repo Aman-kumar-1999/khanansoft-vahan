@@ -15,15 +15,23 @@
 
 
 server:
-  port: 8032
+  port: 8080
 spring:
   application:
     name: Vahan360
   data:
     mongodb:
-     uri: mongodb://admin:admin123@localhost:27017/khanan_db?authSource=admin
-      # uri: mongodb+srv://iqbalmcs_db_user:r3meuPd8TTL8QdHt@cluster0.0cyqmrm.mongodb.net/
-      # database: vehicle_db
+    # local mongodb databse
+    #  uri: mongodb://admin:admin123@localhost:27017/khanan_db?authSource=admin
+      
+      # for acutal khanansoft database
+      # uri: mongodb+srv://admin_user:CCYqOxtIH3pH7EZj@cluster0.zixaxl3.mongodb.net/
+      # database: khanan_db
+
+      # for test schdular database
+      uri: mongodb+srv://admin_user:Ktr8QUl7oK41aNKy@cluster0.nefdzvl.mongodb.net/
+      database: khanan_db
+
 #      mongodb://admin:admin123@localhost:27017/vehicle_db?authSource=admin
 #    mongodb+srv://iqbalmcs_db_user:r3meuPd8TTL8QdHt@cluster0.0cyqmrm.mongodb.net/
 #          mongodb://localhost:27017/vehicle_db
