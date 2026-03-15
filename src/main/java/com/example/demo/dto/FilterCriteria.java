@@ -151,4 +151,24 @@ public class FilterCriteria {
     public void setCheckStatus(String checkStatus) {
         this.checkStatus = checkStatus;
     }
+
+    @Override
+    public String toString() {
+        return "FilterCriteria{" +
+                "district='" + district + '\'' +
+                ", consignerName='" + consignerName + '\'' +
+                ", mineralName='" + mineralName + '\'' +
+                ", mineralCategory='" + mineralCategory + '\'' +
+                ", checkStatus='" + checkStatus + '\'' +
+                ", vehicleRegNo='" + vehicleRegNo + '\'' +
+                ", sourceType='" + sourceType + '\'' +
+                ", consigneeName='" + consigneeName + '\'' +
+                ", challanNo='" + challanNo + '\'' +
+                ", destination='" + destination + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", unit='" + unit + '\'' +
+                ", date='" + date + '\'' +
+                ", transportedDate='" + transportedDate + '\'' +
+                '}';
+    }
 }

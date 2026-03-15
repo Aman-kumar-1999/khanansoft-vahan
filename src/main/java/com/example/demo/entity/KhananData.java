@@ -29,6 +29,10 @@ public class KhananData {
     private String createdAt;
 
 
+    // Default constructor for Jackson deserialization
+    public KhananData() {
+    }
+
     public String getId() {
         return id;
     }
