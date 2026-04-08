@@ -12,7 +12,8 @@ spring:
   data:
     mongodb:
       # MongoDB Atlas connection
-      uri: mongodb+srv://admin_user:CCYqOxtIH3pH7EZj@cluster0.zixaxl3.mongodb.net/
+      # uri: mongodb+srv://admin_user:CCYqOxtIH3pH7EZj@cluster0.zixaxl3.mongodb.net/
+      uri: mongodb+srv://doadmin:l53908D4uhTgbI27@db-mongodb-blr1-34966-69567f90.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=db-mongodb-blr1-34966
       database: khanan_db
       # Connection pool settings
       auto-index-creation: true

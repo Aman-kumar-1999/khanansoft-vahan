@@ -2941,7 +2941,7 @@ public class SeleniumTestService {
         }
     }
 
-    @Scheduled(cron = "0 0 6 * * ?", zone = "Asia/Kolkata")
+    // @Scheduled(cron = "0 0 6 * * ?", zone = "Asia/Kolkata")
     public void runDailyScrapingAtOneAM() {
         if (isProcessing.get()) {
             logger.warn("Manual trigger skipped: Scraper is already running.");

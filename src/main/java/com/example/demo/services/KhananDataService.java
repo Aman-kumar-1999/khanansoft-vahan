@@ -77,13 +77,13 @@ public class KhananDataService {
         List<KhananData> saved = khananDataRepo.saveAll(khananDataList);
 
         // Update summary collection for affected vehicles
-        List<String> vehicles = saved.stream()
-            .map(KhananData::getVehicleRegNo)
-            .distinct()
-            .toList();
-        if (!vehicles.isEmpty()) {
-            refreshVehicleTripSummariesForVehicles(vehicles);
-        }
+        // List<String> vehicles = saved.stream()
+        //     .map(KhananData::getVehicleRegNo)
+        //     .distinct()
+        //     .toList();
+        // if (!vehicles.isEmpty()) {
+        //     refreshVehicleTripSummariesForVehicles(vehicles);
+        // }
 
         return saved;
     }
@@ -157,17 +157,18 @@ public class KhananDataService {
     public void refreshAllVehicleTripSummaries() {
         List<VehicleTripSummary> summaries = aggregateVehicleSummaries(null);
         if (!summaries.isEmpty()) {
-            vehicleTripSummaryRepo.deleteAll();
+            // vehicleTripSummaryRepo.deleteAll();
+            logger.info("Before saving Refreshing all vehicle trip summaries (count={})", summaries.size());
             vehicleTripSummaryRepo.saveAll(summaries);
-            logger.info("Refreshed all vehicle trip summaries (count={})", summaries.size());
+            logger.info("After saving Refreshed all vehicle trip summaries (count={})", summaries.size());
         }
     }
     public List<VehicleTripSummary> refreshAllVehicleTripSummariesAndReturnDataToApi() {
         List<VehicleTripSummary> summaries = aggregateVehicleSummaries(null);
         if (!summaries.isEmpty()) {
-            vehicleTripSummaryRepo.deleteAll();
+            // vehicleTripSummaryRepo.deleteAll();
             vehicleTripSummaryRepo.saveAll(summaries);
-            logger.info("Refreshed all vehicle trip summaries (count={})", summaries.size());
+            logger.info("After saving Refreshed all vehicle trip summaries (count={})", summaries.size());
         }
         return summaries;
     }
@@ -231,15 +232,17 @@ public class KhananDataService {
 
         ).withOptions(AggregationOptions.builder().allowDiskUse(true).build());
 
-        
+        logger.warn("Completed AggregationOption ------> ");
         
         AggregationResults<VehicleTripSummary> results = mongoTemplate.aggregate(aggregation, "khanan_data", VehicleTripSummary.class);
         return results.getMappedResults();
     }
 
-    @Scheduled(fixedDelayString = "PT30M")
+    // @Scheduled(fixedDelayString = "PT30M")
+    @Scheduled(cron = "0 0 3 * * ?", zone = "Asia/Kolkata")
     public void scheduledRefreshSummaries() {
-        logger.info("Scheduled refresh of vehicle trip summaries started");
+        
+        logger.warn("Scheduled refresh of vehicle trip summaries started");
         refreshAllVehicleTripSummaries();
     }
 
