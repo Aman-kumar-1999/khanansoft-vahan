@@ -239,7 +239,7 @@ public class KhananDataService {
     }
 
     // @Scheduled(fixedDelayString = "PT30M")
-    @Scheduled(cron = "0 0 3 * * ?", zone = "Asia/Kolkata")
+    @Scheduled(cron = "0 0 11 * * ?", zone = "Asia/Kolkata")
     public void scheduledRefreshSummaries() {
         
         logger.warn("Scheduled refresh of vehicle trip summaries started");
@@ -269,6 +269,7 @@ public class KhananDataService {
             data.getId(),
             data.getDistrict(), // Assuming district is DMO
             data.getConsignerName(),
+            data.getSourceType(),
             data.getConsigneeName(),
             data.getMineralName(),
             data.getChallanNo(),

@@ -4,6 +4,7 @@ public class TripDetail {
     private String id;
     private String dmo;
     private String consignerName;
+    private String sourceType;
     private String consigneeName;
     private String mineralName;
     private String challanNo;
@@ -14,12 +15,13 @@ public class TripDetail {
     public TripDetail() {
     }
 
-    public TripDetail(String id, String dmo, String consignerName, String consigneeName,
+    public TripDetail(String id, String dmo, String consignerName, String sourceType, String consigneeName,
             String mineralName, String challanNo, String destination, String transportedDate,
             String quantityMT) {
         this.id = id;
         this.dmo = dmo;
         this.consignerName = consignerName;
+        this.sourceType = sourceType;
         this.consigneeName = consigneeName;
         this.mineralName = mineralName;
         this.challanNo = challanNo;
@@ -55,6 +57,13 @@ public class TripDetail {
 
     public String getConsigneeName() {
         return consigneeName;
+    }
+
+    public String getSourceType() {
+        return sourceType;
+    }
+    public void setSourceType(String sourceType) {
+        this.sourceType = sourceType;
     }
 
     public void setConsigneeName(String consigneeName) {
